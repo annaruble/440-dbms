@@ -69,13 +69,24 @@ public class DatabaseWriter {
         }
         
         return addressBook;
-    }
+    } 
     public ArrayList<Player> readPlayerFromCsv(String filename) {
         ArrayList<Player> roster = new ArrayList<>();
-        CSVReader reader = null;
-        // TODO: Read the CSV file, create an object of type Player from each line and add it to the ArrayList
-        
+        try {
+            CSVReader reader = new CSVReader(new FileReader(filename));
+            // TODO: Read the CSV file, create an object of type Player from each line and add it to the ArrayList
+            //String [] data = reader.readNext().split(",");
+            String[] data;
+            reader.readNext();
+            while ((data = reader.readNext()) != null) {
+               Player player = new Player(data[0], data[1], data[4], data[2]);
+               roster.add(player);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(DatabaseReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return roster;
+  
     }
     /**
      * Create tables cities and teams
@@ -151,10 +162,17 @@ public class DatabaseWriter {
     public void writeTeamTable(String db_filename, ArrayList<Team> league) throws SQLException {
         Connection db_connection = DriverManager.getConnection(SQLITEDBPATH + db_filename);
         // TODO: Write an SQL statement to insert a new team into a table
-        String sql = "";
+        String sql = "INSERT INTO team(id, abbr, name, conference, division) VALUES (?,?,?,?,?)";
         for (Team team: league) {
             PreparedStatement statement_prepared = db_connection.prepareStatement(sql);
             // TODO: match parameters of the SQL statement and team id, abbreviation, name, conference, division, and logo
+            statement_prepared.setString(1, team.getId());
+            statement_prepared.setString(2, team.getAbbreviation());
+            statement_prepared.setString(3, team.getName());
+            statement_prepared.setString(4, team.getConference());
+            statement_prepared.setString(5, team.getDivision());
+            // statement_prepared.setString(6, logo);
+            
             statement_prepared.executeUpdate();
         }
         
