@@ -125,7 +125,7 @@ public class Team {
     public String toString() {
         // TODO: Implement this method
         String str = this.name + '\n' + this.conference + " | " +
-                this.division + '\n' + this.address + '\n' + this.roster;
+                this.division + '\n' + this.address + '\n' + "Roster size: " + this.roster.size();
         return str;
         //throw new UnsupportedOperationException();
     }

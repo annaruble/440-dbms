@@ -59,7 +59,10 @@ public class DatabaseWriter {
             Scanner fs = new Scanner(new File(filename));
             while (fs.hasNextLine()) {
                 // TODO: Parse each line into an object of type Address and add it to the ArrayList
-                fs.nextLine();
+                String[] data = fs.nextLine().split("\t");
+                System.out.println(data);
+                Address addr = new Address(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);       
+                addressBook.add(addr);
             }
         } catch (IOException ex) {
             Logger.getLogger(DatabaseReader.class.getName()).log(Level.SEVERE, null, ex);

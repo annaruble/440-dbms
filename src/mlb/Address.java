@@ -31,6 +31,10 @@ public class Address {
         this.phone = _phone;
         this.url = _url;
     }
+
+    Address() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     /**
      * @return Team name
      */
