@@ -187,9 +187,19 @@ public class DatabaseWriter {
         Connection db_connection = DriverManager.getConnection(SQLITEDBPATH + db_filename);
         for (Address address: addressBook) {
             // TODO: Write an SQL statement to insert a new address into a table
-            String sql = "";
+            String sql = "INSERT INTO address(team, site, street, city, state, zip, phone, url) VALUES(?,?,?,?,?,?,?,?)";
+
             PreparedStatement statement_prepared = db_connection.prepareStatement(sql);
             // TODO: match parameters of the SQL statement and address site, street, city, state, zip, phone, and url
+            statement_prepared.setString(1, address.getTeam());
+            statement_prepared.setString(2, address.getSite());
+            statement_prepared.setString(3, address.getStreet());
+            statement_prepared.setString(4, address.getCity());
+            statement_prepared.setString(5, address.getState());
+            statement_prepared.setString(6, address.getZip());
+            statement_prepared.setString(7, address.getPhone());
+            statement_prepared.setString(8, address.getUrl());
+
             statement_prepared.executeUpdate();
         }
         
