@@ -48,32 +48,20 @@ public class DatabaseReader {
         try {
             stat = this.db_connection.createStatement();
             // TODO: Write an SQL statement to retrieve a league (conference) and a division
-            String sql = "";
+            String sql = "SELECT DISTINCT conference, division FROM team";
+            results = stat.executeQuery(sql);
             // TODO: Add all 6 combinations to the ArrayList divisions
+            while (results.next()) {
+                String data = results.getString("conference") + " | " + results.getString("division");
+                divisions.add(data);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseReader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             this.disconnect();
         }
     }
-    
-    /**
-     * Test of getDivisions method, of class DatabaseReader.
-    
-    @Test
-    public void testGetDivisions() {
-        System.out.println("getDivisions");
-        int expResult = 6;
-        ArrayList<String> divisions = new ArrayList<>();
-        DatabaseReader instance = new DatabaseReader();
-        long start = System.nanoTime();
-        instance.getDivisions(divisions);
-        long end = System.nanoTime();
-        assertTrue((end-start) / 1000000 < 50);
-        assertEquals(expResult, divisions.size());
-    }
-     */
-    
+ 
     /**
      * Read all teams from the database
      * @param confDiv

@@ -162,7 +162,7 @@ public class DatabaseWriter {
     public void writeTeamTable(String db_filename, ArrayList<Team> league) throws SQLException {
         Connection db_connection = DriverManager.getConnection(SQLITEDBPATH + db_filename);
         // TODO: Write an SQL statement to insert a new team into a table
-        String sql = "INSERT INTO team(id, abbr, name, conference, division) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO team(id, abbr, name, conference, division, logo) VALUES (?,?,?,?,?,?)";
         for (Team team: league) {
             PreparedStatement statement_prepared = db_connection.prepareStatement(sql);
             // TODO: match parameters of the SQL statement and team id, abbreviation, name, conference, division, and logo
@@ -171,7 +171,7 @@ public class DatabaseWriter {
             statement_prepared.setString(3, team.getName());
             statement_prepared.setString(4, team.getConference());
             statement_prepared.setString(5, team.getDivision());
-            // statement_prepared.setString(6, logo);
+            //statement_prepared.setString(6, team.getLogo());
             
             statement_prepared.executeUpdate();
         }
