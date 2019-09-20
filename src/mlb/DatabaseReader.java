@@ -56,6 +56,24 @@ public class DatabaseReader {
             this.disconnect();
         }
     }
+    
+    /**
+     * Test of getDivisions method, of class DatabaseReader.
+    
+    @Test
+    public void testGetDivisions() {
+        System.out.println("getDivisions");
+        int expResult = 6;
+        ArrayList<String> divisions = new ArrayList<>();
+        DatabaseReader instance = new DatabaseReader();
+        long start = System.nanoTime();
+        instance.getDivisions(divisions);
+        long end = System.nanoTime();
+        assertTrue((end-start) / 1000000 < 50);
+        assertEquals(expResult, divisions.size());
+    }
+     */
+    
     /**
      * Read all teams from the database
      * @param confDiv
