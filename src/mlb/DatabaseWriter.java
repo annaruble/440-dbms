@@ -214,9 +214,15 @@ public class DatabaseWriter {
         Connection db_connection = DriverManager.getConnection(SQLITEDBPATH + db_filename);
         for (Player player: roster) {
             // TODO: Write an SQL statement to insert a new player into a table
-            String sql = "";
+            String sql = "INSERT INTO player(id, name, team, position) VALUES(?,?,?,?)";
+            
             PreparedStatement statement_prepared = db_connection.prepareStatement(sql);
             // TODO: match parameters of the SQL statement and player id, name, position
+            statement_prepared.setString(1, player.getId());
+            statement_prepared.setString(2, player.getName());
+            statement_prepared.setString(3, player.getTeam());
+            statement_prepared.setString(4, player.getPosition());
+            
             statement_prepared.executeUpdate();
         }
         
