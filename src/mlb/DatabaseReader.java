@@ -73,13 +73,18 @@ public class DatabaseReader {
         String conference = confDiv.split(" | ")[0];
         String division = confDiv.split(" | ")[2];
         
+        
         this.connect();
         try {
             stat = this.db_connection.createStatement();
             // TODO: Write an SQL statement to retrieve a teams from a specific division
-            String sql = "";
+            String sql = String.format("SELECT DISTINCT name FROM team WHERE division='%s' AND conference='%s';", division, conference);
             results = stat.executeQuery(sql);
             // TODO: Add all 5 teams to the ArrayList teams
+            while (results.next()) {
+                String data = results.getString("name");
+                teams.add(data);
+            }
             results.close();
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseReader.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,7 +98,43 @@ public class DatabaseReader {
      */
     public Team getTeamInfo(String teamName) {
         Team team = null;
-        // TODO: Retrieve team info (roster, address, and logo) from the database
+        
+    /** Connect to database
+
+    \\ Get all information from teams Database (idpk, logo, abbr, conference, division)
+    \\ Create a new team Object with all that information
+
+    \\ Build Roster
+    \\ Get all players from team
+    \\ Create a new player object from each of them and add to roster list
+
+    \\ Get address of team
+    \\ Select all from address
+    \\ create a new address object from info
+
+    \\ Set logo, roster and address user setters
+    */
+        this.connect();
+        try {
+            Statement stat = this.db_connection.createStatement();
+            // TODO: Retrieve team info (roster, address, and logo) from the database
+
+            String sql = "﻿SELECT * FROM team";
+            ResultSet results = stat.executeQuery(sql);
+            Team newTeam;
+            //newTeam = newTeam(results[0][1]);
+            
+
+        // get a specific team
+            // select distinct player from team where teamName=""
+            // select site, street, city, state, zip in address where teamName=""
+            // select logo from team where teamName=""
+        results = stat.executeQuery(sql);
+        
+        results.close();
+        return team;
+    } catch (SQLException ex) {
+        Logger.getLogger(DatabaseReader.class.getName()).log(Level.SEVERE, null, ex);
         return team;
     }
-}
+}}
