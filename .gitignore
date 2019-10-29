@@ -31,3 +31,5 @@ nbdist/
 
 # VS Code config
 .vscode/
+/Project3/nbproject/private/
+.DS_Store
