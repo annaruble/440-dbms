@@ -25,5 +25,6 @@ public class Project3 {
         CreateTable.createAll();   
         InsertData.insertAll();
         Views.createSeniorView();
+        Views.createCurrentCoursesView();
     }
 }

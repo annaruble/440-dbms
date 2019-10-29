@@ -64,7 +64,7 @@ public class Views {
 
         try {
             stmt = conn.createStatement();
-            //stmt.executeUpdate(facultyView);
+            stmt.executeUpdate(facultyView);
             
             System.out.println("Faculty Info view created");
             
